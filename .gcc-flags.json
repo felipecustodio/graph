@@ -1,0 +1,6 @@
+{
+  "execPath": "/usr/bin/gcc",
+  "gccDefaultCFlags": "-Wall -std=c99",
+  "gccIncludePaths": ".,./include,./path, ./*",
+  "gccSuppressWarnings": true
+}
