@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "graph.h"
+#include "queue.h"
 
 // Initializers
 void initGraph(Graph** g, int vertices) {
@@ -35,6 +36,43 @@ void addEdge(Graph* g, int start, int end) {
 
 void removeEdge(Graph** g, int start, int end) {
     (*g)->matrix[start][end] = 0;
+}
+
+void bfs(Graph* g, int start, int end) {
+
+    printf("BFS between %d %d\n", start, end);
+
+    int i, j;
+    int current;
+    // initialize queue (static)
+    Queue* q = createQueue();
+    // mark current as visited and add to queue
+    g->vertices[start]->discovered = 1;
+    enqueue(q, start);
+
+    while (!isEmpty(q)) {
+        current = dequeue(q);
+        printf("%d\n", current);
+
+        // loop adjacents
+        for () {
+            if (!g->vertices[i]->discovered) {
+                g->vertices[i]->discovered = 1;
+                enqueue(q, i);
+            }
+        }
+    }
+}
+
+void dfs(graph* g, int start, int end) {
+    int i;
+    printf("\n%d", start);
+    g->vertices[start]->discovered = 1;
+    for (i = 0; i < g->n_vertices; i++) {
+        if (!g->vertices[i]->discovered && g->matrix[i][j]) {
+            dfs(g, i, end);
+        }
+    }
 }
 
 void printGraph(Graph* g) {

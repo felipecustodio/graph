@@ -4,8 +4,8 @@
 #define QUEUE_H
 
 #define SIZE 100
-/* allows queues of items of any type */
-#define item Vertex*
+// #define item Vertex*
+#define item int
 
 typedef struct queue Queue;
 Queue* createQueue();

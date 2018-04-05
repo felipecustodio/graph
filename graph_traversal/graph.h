@@ -27,6 +27,9 @@ void addEdge(Graph* g, int start, int end);
 // Removal
 void removeEdge(Graph** g, int start, int end);
 
+// Traversal
+void bfs(Graph* g, int start, int end);
+
 // Print
 void printGraph(Graph* g);
 

@@ -27,8 +27,7 @@ int main(int argc, char const *argv[]) {
 
     // find path between two nodes
     while (scanf("%d %d", &v1, &v2) != EOF) {
-        // busca: v1 -> v2
-        printf("search %d -> %d\n", v1, v2);
+        bfs(g, v1, v2);
     }
 
     return 0;
