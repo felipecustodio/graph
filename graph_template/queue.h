@@ -5,7 +5,7 @@
 
 #define SIZE 100
 /* allows queues of items of any type */
-#define item Vertex*
+#define item VERTEX*
 
 typedef struct queue Queue;
 Queue* createQueue();

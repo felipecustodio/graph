@@ -7,7 +7,7 @@
 #include <stdlib.h>
 #include "graph.h"
 
-void initGraph(Graph** g) {
+void init_graph(Graph** g) {
     (*g) = (Graph*)malloc(sizeof(Graph));
     (*g)->n_vertices = 0;
     (*g)->n_edges = 0;
@@ -16,8 +16,8 @@ void initGraph(Graph** g) {
     (*g)->matrix = NULL;
 }
 
-void initVertex(Vertex** v) {
-    (*v) = (Vertex*)malloc(sizeof(Vertex));
+void initVERTEX(VERTEX** v) {
+    (*v) = (VERTEX*)malloc(sizeof(VERTEX));
     (*v)->id = -1;
     (*v)->out_degree = 0;
     (*v)->adjacents = NULL;
@@ -43,43 +43,43 @@ void initMatrix(Graph** g, int size) {
     }
 }
 
-void addVertex(Graph** g, int value) {
-	Vertex* v;
-    initVertex(&v);
+void addVERTEX(Graph** g, int value) {
+	VERTEX* v;
+    initVERTEX(&v);
 
     int i;
-    // discover if vertex already exists
+    // discover if VERTEX already exists
     for (i = 0; i < (*g)->n_vertices; i++) {
         if ((*g)->vertices[i]->value == value) {
             return;
         }
     }
 
-    // allocate new vertex
-	(*g)->vertices = (Vertex**)realloc((*g)->vertices,
-        sizeof(Vertex*) * (*g)->n_vertices + 1);
+    // allocate new VERTEX
+	(*g)->vertices = (VERTEX**)realloc((*g)->vertices,
+        sizeof(VERTEX*) * (*g)->n_vertices + 1);
 
-    // set new vertex values
+    // set new VERTEX values
 	v->value = value;
 	v->id = (*g)->n_vertices;
 
-    // add new vertex to vertex list
+    // add new VERTEX to VERTEX list
 	(*g)->vertices[(*g)->n_vertices] = v;
 	(*g)->n_vertices += 1;
 }
 
-void addEdge(Graph** g, int start, int end, int weight) {
+void add_edge(Graph** g, int start, int end, int weight) {
     switch ((*g)->representation) {
         case 'M':
-            addEdge_Matrix(g, start, end, weight);
+            add_edge_Matrix(g, start, end, weight);
             break;
         case 'L':
-            addEdge_List(g, start, end, weight);
+            add_edge_List(g, start, end, weight);
             break;
     }
 }
 
-void addEdge_List(Graph** g, int start, int end, int weight) {
+void add_edge_List(Graph** g, int start, int end, int weight) {
     // initialize
     Edge* e;
     initEdge(&e);
@@ -127,7 +127,7 @@ void addEdge_List(Graph** g, int start, int end, int weight) {
     }
 }
 
-void addEdge_Matrix(Graph** g, int start, int end, int weight) {
+void add_edge_Matrix(Graph** g, int start, int end, int weight) {
     // initialize
     Edge* e;
     initEdge(&e);
@@ -148,18 +148,18 @@ void addEdge_Matrix(Graph** g, int start, int end, int weight) {
     }
 }
 
-void removeEdge(Graph** g, int start, int end) {
+void remove_edge(Graph** g, int start, int end) {
     switch ((*g)->representation) {
         case 'M':
-            removeEdge_Matrix(g, start, end);
+            remove_edge_Matrix(g, start, end);
             break;
         case 'L':
-            removeEdge_List(g, start, end);
+            remove_edge_List(g, start, end);
             break;
     }
 }
 
-void removeEdge_List(Graph** g, int start, int end) {
+void remove_edge_List(Graph** g, int start, int end) {
     int i;
     for (i = 0; i < (*g)->n_vertices; i++) {
         // search for node with value start or end
@@ -174,7 +174,7 @@ void removeEdge_List(Graph** g, int start, int end) {
     }
 }
 
-void removeEdge_Matrix(Graph** g, int start, int end) {
+void remove_edge_Matrix(Graph** g, int start, int end) {
     int i;
 
     // remove on matrix
@@ -246,19 +246,19 @@ void transpose_Matrix(Graph** g) {
     }
 }
 
-void printGraph(Graph* g) {
+void print_graph(Graph* g) {
     switch (g->representation) {
         case 'M':
-            printGraph_Matrix(g);
+            print_graph_Matrix(g);
             break;
         case 'L':
-            printGraph_List(g);
+            print_graph_List(g);
             break;
     }
 }
 
-void printGraph_List(Graph* g) {
-    Vertex* current = NULL;
+void print_graph_List(Graph* g) {
+    VERTEX* current = NULL;
     int i, j;
     // go through vertices
     for (i = 0; i < g->n_vertices; i++) {
@@ -272,7 +272,7 @@ void printGraph_List(Graph* g) {
     }
 }
 
-void printGraph_Matrix(Graph* g) {
+void print_graph_Matrix(Graph* g) {
     int i, j;
     for (i = 0; i < g->n_vertices; i++) {
         for (j = 0; j < g->n_vertices; j++) {
@@ -286,32 +286,32 @@ void printGraph_Matrix(Graph* g) {
     }
 }
 
-void printAdjacents(Graph* g, int vertex) {
+void printAdjacents(Graph* g, int VERTEX) {
     switch (g->representation) {
         case 'M':
-            printAdjacencyMatrix(g, vertex);
+            printAdjacencyMatrix(g, VERTEX);
             break;
         case 'L':
-            printAdjacencyList(g, vertex);
+            printAdjacencyList(g, VERTEX);
             break;
     }
 }
 
-void printAdjacencyMatrix(Graph* g, int vertex) {
+void printAdjacencyMatrix(Graph* g, int VERTEX) {
     int i;
     for (i = 0; i < g->n_vertices; i++) {
-        if (g->matrix[vertex][i] > -1) {
+        if (g->matrix[VERTEX][i] > -1) {
             printf("%d ", i);
         }
     }
     printf("\n");
 }
 
-void printAdjacencyList(Graph* g, int vertex) {
+void printAdjacencyList(Graph* g, int VERTEX) {
     int i;
-    Vertex* current = NULL;
+    VERTEX* current = NULL;
     for (i = 0; i < g->n_vertices; i++) {
-        if (g->vertices[i]->value == vertex) {
+        if (g->vertices[i]->value == VERTEX) {
             current = g->vertices[i];
         }
     }

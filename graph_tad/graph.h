@@ -7,12 +7,12 @@
 #define _GRAPH_H_
 
 // Structures
-typedef struct vertex {
+typedef struct VERTEX {
     int id;
     int value;
     int out_degree;
     int* adjacents;
-} Vertex;
+} VERTEX;
 
 typedef struct edge {
     int start;
@@ -23,7 +23,7 @@ typedef struct edge {
 typedef struct graph {
     int n_vertices;
     int n_edges;
-    Vertex** vertices;
+    VERTEX** vertices;
     Edge** edges;
     char** matrix;
     int directed;
@@ -31,21 +31,21 @@ typedef struct graph {
 } Graph;
 
 // Initializers
-void initGraph(Graph** g);
-void initVertex(Vertex** v);
+void init_graph(Graph** g);
+void initVERTEX(VERTEX** v);
 void initEdge(Edge** e);
 void initMatrix(Graph** g, int size);
 
-// Add Vertex/Edge
-void addVertex(Graph** g, int value);
-void addEdge(Graph** g, int start, int end, int weight);
-void addEdge_List(Graph** g, int start, int end, int weight);
-void addEdge_Matrix(Graph** g, int start, int end, int weight);
+// Add VERTEX/Edge
+void addVERTEX(Graph** g, int value);
+void add_edge(Graph** g, int start, int end, int weight);
+void add_edge_List(Graph** g, int start, int end, int weight);
+void add_edge_Matrix(Graph** g, int start, int end, int weight);
 
 // Removal
-void removeEdge(Graph** g, int start, int end);
-void removeEdge_List(Graph** g, int start, int end);
-void removeEdge_Matrix(Graph** g, int start, int end);
+void remove_edge(Graph** g, int start, int end);
+void remove_edge_List(Graph** g, int start, int end);
+void remove_edge_Matrix(Graph** g, int start, int end);
 
 // Edges
 void sortEdges(Graph** g);
@@ -54,13 +54,13 @@ void transpose_Matrix(Graph **g);
 void transpose(Graph** g);
 
 // Print
-void printGraph(Graph* g);
-void printGraph_List(Graph* g);
-void printGraph_Matrix(Graph* g);
+void print_graph(Graph* g);
+void print_graph_List(Graph* g);
+void print_graph_Matrix(Graph* g);
 
-void printAdjacents(Graph* g, int vertex);
-void printAdjacencyMatrix(Graph* g, int vertex);
-void printAdjacencyList(Graph* g, int vertex);
+void printAdjacents(Graph* g, int VERTEX);
+void printAdjacencyMatrix(Graph* g, int VERTEX);
+void printAdjacencyList(Graph* g, int VERTEX);
 
 void findSmallestEdge(Graph* g);
 

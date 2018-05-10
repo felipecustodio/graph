@@ -7,30 +7,30 @@
 #define _GRAPH_H_
 
 // Structures
-typedef struct vertex {
+typedef struct VERTEX {
     int id;
     int discovered;
-} Vertex;
+} VERTEX;
 
 typedef struct graph {
     int n_vertices;
-    Vertex** vertices;
+    VERTEX** vertices;
     char** matrix;
 } Graph;
 
 // Initializers
-void initGraph(Graph** g, int vertices);
+void init_graph(Graph** g, int vertices);
 
 // Add new edge
-void addEdge(Graph* g, int start, int end);
+void add_edge(Graph* g, int start, int end);
 
 // Removal
-void removeEdge(Graph** g, int start, int end);
+void remove_edge(Graph** g, int start, int end);
 
 // Traversal
 void bfs(Graph* g, int start, int end);
 
 // Print
-void printGraph(Graph* g);
+void print_graph(Graph* g);
 
 #endif

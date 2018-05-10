@@ -23,7 +23,7 @@ int main(int argc, char const *argv[]) {
     int i, j;
 
     Graph* g = NULL;
-    initGraph(&g);
+    init_graph(&g);
 
     // create graph with given parameters
     scanf("%c %c %d %d", &directed, &representation, &x, &y);
@@ -48,15 +48,15 @@ int main(int argc, char const *argv[]) {
     for (i = 0; i < y; i++) {
         scanf("%d %d %d", &start, &end, &weight);
         getchar();
-        addVertex(&g, start);
-        addVertex(&g, end);
-        addEdge(&g, start, end, weight);
+        addVERTEX(&g, start);
+        addVERTEX(&g, end);
+        add_edge(&g, start, end, weight);
     }
     sortEdges(&g);
 
     while (scanf("%s ", command) != EOF) {
         if (instruction(command, "IG")) {
-            printGraph(g);
+            print_graph(g);
         } else if (instruction(command, "VA")) {
             // print adjacency list of x
             scanf("%d", &x);
@@ -64,15 +64,15 @@ int main(int argc, char const *argv[]) {
         } else if (instruction(command, "AA")) {
             // add edge between x y with weight w
             scanf("%d %d %d", &x, &y, &w);
-            addEdge(&g, x, y, w);
+            add_edge(&g, x, y, w);
             sortEdges(&g);
         } else if (instruction(command, "RA")) {
             scanf("%d %d", &x, &y);
-            removeEdge(&g, x, y);
+            remove_edge(&g, x, y);
         } else if (instruction(command, "IT")) {
             if (g->directed) {
                 transpose(&g);
-                printGraph(g);
+                print_graph(g);
             }
         } else if (instruction(command, "MP")) {
             findSmallestEdge(g);

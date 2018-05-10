@@ -9,11 +9,11 @@
 #define false 0
 #define SIZE 100
 
-typedef struct vertex {
+typedef struct VERTEX {
 
-	/* vertex location */
+	/* VERTEX location */
 	int id;
-	/* content of vertex (1 or 0) */
+	/* content of VERTEX (1 or 0) */
 	char value;
 	/* number of edges */
 	int edges;
@@ -26,20 +26,20 @@ typedef struct vertex {
 	/* predecessor */
 	int parent;
 
-} Vertex; 
+} VERTEX; 
 
 typedef struct graph {
 
 	/* number of vertices */
 	int size; 
 	/* list of node references */
-	Vertex** content;
+	VERTEX** content;
 
 } Graph;
 
 typedef struct queue {
 
-	Vertex* content[SIZE];
+	VERTEX* content[SIZE];
 	int begin;
 	int end;
 	int total;
@@ -66,7 +66,7 @@ int isEmpty(Queue *q) {
 	return (q->total == 0);
 }
 
-int enqueue(Queue *q, Vertex* item) {
+int enqueue(Queue *q, VERTEX* item) {
 	if (!isFull(q)) {
 		q->content[q->end] = item;
 		q->end = (q->end + 1) % SIZE;
@@ -77,9 +77,9 @@ int enqueue(Queue *q, Vertex* item) {
 	}
 }
 
-Vertex* dequeue(Queue *q) {
+VERTEX* dequeue(Queue *q) {
 	if (!isEmpty(q)) {
-		Vertex* item = q->content[q->begin];
+		VERTEX* item = q->content[q->begin];
 		q->begin = (q->begin + 1) % SIZE;
 		q->total -= 1;
 		return item;
@@ -100,11 +100,11 @@ Graph* createGraph() {
 	return g;
 }
 
-void addVertex(Graph *g, int content) {
-	Vertex* new = (Vertex*)malloc(sizeof(Vertex));
-	/* increase vertex list of graph */
-	g->content = (Vertex**)realloc(g->content, sizeof(Vertex*) * g->size + 1);
-	/* insert new vertex with specified content */
+void addVERTEX(Graph *g, int content) {
+	VERTEX* new = (VERTEX*)malloc(sizeof(VERTEX));
+	/* increase VERTEX list of graph */
+	g->content = (VERTEX**)realloc(g->content, sizeof(VERTEX*) * g->size + 1);
+	/* insert new VERTEX with specified content */
 	new->value = content;
 	new->edges = 0;
 	new->adjacents = NULL;
@@ -113,19 +113,19 @@ void addVertex(Graph *g, int content) {
 	g->size += 1;
 }
 
-void addEdge(Graph* g, int start, int end) {
+void add_edge(Graph* g, int start, int end) {
 	/* start node, end node */
-	/* add vertex to start adjacency list */
-	/* access start vertex, enlarge array of adjacents by 1*/
+	/* add VERTEX to start adjacency list */
+	/* access start VERTEX, enlarge array of adjacents by 1*/
 	g->content[start]->adjacents = (int*)realloc(g->content[start]->adjacents, sizeof(int) * g->content[start]->edges + 1);
-	/* add end vertex to adjacency list of start vertex */
+	/* add end VERTEX to adjacency list of start VERTEX */
 	g->content[start]->adjacents[g->content[start]->edges] = end;
 	/* increase number of edges */
 	g->content[start]->edges += 1;
-	/* add vertex to end adjacency list */
-	/* access end vertex, enlarge array of adjacents by 1*/
+	/* add VERTEX to end adjacency list */
+	/* access end VERTEX, enlarge array of adjacents by 1*/
 	g->content[end]->adjacents = (int*)realloc(g->content[end]->adjacents, sizeof(int) * g->content[end]->edges + 1);
-	/* add start vertex to adjacency list of start vertex */
+	/* add start VERTEX to adjacency list of start VERTEX */
 	g->content[end]->adjacents[g->content[end]->edges] = start;
 	/* increase number of edges */
 	g->content[end]->edges += 1;
@@ -164,9 +164,9 @@ void bfs(Graph *g, int start) {
 	/* start = index */
 	/* reset graph and create queue */
 	int i;
-	/* parent vertex */
-	Vertex* u = NULL;
-	/* current vertex */
+	/* parent VERTEX */
+	VERTEX* u = NULL;
+	/* current VERTEX */
 	int v;
 	resetGraph(g);
 	Queue *q = createQueue();
@@ -191,8 +191,8 @@ void findPath(Graph *g, int start, int end, int col) {
 	bool inPath;
 	int size = 0;
 	int* path = NULL;
-	/* get destination vertex */
-	Vertex* current = g->content[end];
+	/* get destination VERTEX */
+	VERTEX* current = g->content[end];
 	/* iterate until we reach the starting point */
 	while (current->id != g->content[start]->id) {
 		path = (int*)realloc(path, sizeof(int) * size + 1);
@@ -250,7 +250,7 @@ int main(int argc, char const *argv[]) {
 		maze[i] = (int*)malloc(sizeof(int) * col);
 		for (j = 0; j < col; j++) {
 			scanf("%d", &maze[i][j]);
-			addVertex(g, maze[i][j]);
+			addVERTEX(g, maze[i][j]);
 		}
 	}
 
@@ -262,13 +262,13 @@ int main(int argc, char const *argv[]) {
 				/* check right */
 				if (j + 1 < col) {
 					if (maze[i][j + 1] == 0) {
-						addEdge(g, counter, counter + 1);
+						add_edge(g, counter, counter + 1);
 					}
 				}
 				/* check down */
 				if (i + 1 < row) {
 					if (maze[i + 1][j] == 0) {
-						addEdge(g, counter, counter + col);
+						add_edge(g, counter, counter + col);
 					}
 				}
  			}

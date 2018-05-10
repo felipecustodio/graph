@@ -9,11 +9,11 @@
 #define true 1
 #define false 0
 
-typedef struct vertex {
+typedef struct VERTEX {
 
-	/* vertex location */
+	/* VERTEX location */
 	int id;
-	/* content of vertex (1 or 0) */
+	/* content of VERTEX (1 or 0) */
 	char value;
 	/* number of edges */
 	int edges;
@@ -26,19 +26,19 @@ typedef struct vertex {
 	/* predecessor */
 	int parent;
 
-} Vertex; 
+} VERTEX; 
 
 typedef struct graph {
 
 	/* number of vertices */
 	int size; 
 	/* list of node references */
-	Vertex** content;
+	VERTEX** content;
 
 } Graph;
 
 Graph* createGraph();
-void addVertex(Graph *g, int content);
-void addEdge(Graph* g, int start, int end);
+void addVERTEX(Graph *g, int content);
+void add_edge(Graph* g, int start, int end);
 void resetGraph(Graph *g);
 void bfs(Graph *g, int start);

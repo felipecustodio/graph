@@ -9,14 +9,14 @@
 #include "queue.h"
 
 // Initializers
-void initGraph(Graph** g, int vertices) {
+void init_graph(Graph** g, int vertices) {
     int i, j;
     (*g) = (Graph*)malloc(sizeof(Graph));
     // initialize vertices
     (*g)->n_vertices = vertices;
-    (*g)->vertices = (Vertex**)malloc(sizeof(Vertex*) * vertices);
+    (*g)->vertices = (VERTEX**)malloc(sizeof(VERTEX*) * vertices);
     for (i = 0; i < vertices; i++) {
-        (*g)->vertices[i] = (Vertex*)malloc(sizeof(Vertex));
+        (*g)->vertices[i] = (VERTEX*)malloc(sizeof(VERTEX));
         (*g)->vertices[i]-> id = i;
         (*g)->vertices[i]->discovered = 0;
     }
@@ -30,11 +30,11 @@ void initGraph(Graph** g, int vertices) {
     }
 }
 
-void addEdge(Graph* g, int start, int end) {
+void add_edge(Graph* g, int start, int end) {
     g->matrix[start][end] = 1;
 }
 
-void removeEdge(Graph** g, int start, int end) {
+void remove_edge(Graph** g, int start, int end) {
     (*g)->matrix[start][end] = 0;
 }
 
@@ -75,7 +75,7 @@ void dfs(graph* g, int start, int end) {
     }
 }
 
-void printGraph(Graph* g) {
+void print_graph(Graph* g) {
     int i, j;
     for (i = 0; i < g->n_vertices; i++) {
         for (j = 0; j < g->n_vertices; j++) {

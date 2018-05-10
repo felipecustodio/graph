@@ -4,7 +4,7 @@
 #define QUEUE_H
 
 #define SIZE 100
-// #define item Vertex*
+// #define item VERTEX*
 #define item int
 
 typedef struct queue Queue;

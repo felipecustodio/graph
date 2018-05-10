@@ -19,10 +19,10 @@ int main(int argc, char const *argv[]) {
 
     // read and create graph edges
     scanf("%d %d", &v, &e);
-    initGraph(&g, v);
+    init_graph(&g, v);
     for (i = 0; i < e; i++) {
         scanf("%d %d", &v1, &v2);
-        addEdge(g, v1, v2);
+        add_edge(g, v1, v2);
     }
 
     // find path between two nodes
