@@ -38,4 +38,7 @@ void remove_edge(GRAPH** g, int start, int end);
 // Print
 void print_graph(GRAPH* g);
 
+// Prim's MST
+void prim(GRAPH* g);
+
 #endif

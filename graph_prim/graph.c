@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+
 #include "graph.h"
 #include "stack.h"
 
@@ -36,6 +37,7 @@ void init_graph(GRAPH** g, int vertices) {
 // add edge between nodes 'start' and 'end' with weight 'weight'
 void add_edge(GRAPH* g, int start, int end, int weight) {
     g->matrix[start][end] = weight;
+    g->matrix[end][start] = weight;
 }
 
 
@@ -59,65 +61,60 @@ void print_graph(GRAPH* g) {
     }
 }
 
-/****************/
-/*  PRIM'S MST  */
-/****************/
-// check if all nodes in a graph were reached
-int all_discovered(GRAPH* g) {
-    int i;
-    int discovered = 0;
-    for (i = 0; i < g->n_vertices; i++) {
-        ((*g)->vertices[i]->discovered == 0) {
-            discovered++;
-        }
-    }
-    if (discovered == n_vertices) {
-        return TRUE;
-    } else {
-        return FALSE;
-    }
-}
+// Prim's algorithm for MST
+void prim(GRAPH* g) {
+	int i, j, k;
+    int count, predecessor, child, min;
 
-// print predecessors
-void print_predecessors(GRAPH* g) {
-    int i;
+    // initialize set of reached vertices
+	VERTEX* reached = (VERTEX*)malloc(sizeof(VERTEX) * g->n_vertices);
+    // initialize all as undiscovered and without parents
     for (i = 0; i < g->n_vertices; i++) {
-        printf("%d ", g->vertices[i]->parent);
+        reached[i].discovered = 0; // set as undiscovered
+        reached[i].parent = -1; // set parent as -1
     }
-}
 
-// find smallest edge going out from v
-int find_smallest_edge(GRAPH* g, int v) {
-    int adjacent = -1;
-    int min = INFINITY;
-    for (adjacent = 0; adjacent < g->n_vertices; adjacent++) {
-        if (g->matrix[v][adjacent] < min) {
-            if (!g->vertices[adjacent]->discovered) {
-                min = adjacent;
+    // visit first node 0
+	reached[0].discovered = 1;
+
+    // traverse reached nodes set
+    // J -> K
+	for (i = 0; i < g->n_vertices - 1; i++) {
+		min = 9999;
+        // traverse all graph nodes
+		for (j = 0; j < g->n_vertices; j++) {
+            // check if node is in reached sets
+            if (reached[j].discovered == 1) {
+                // traverse all adjacent nodes
+				for (k = 0; k < g->n_vertices; k++) {
+                    // check if edge from J to K exists
+                    if (g->matrix[j][k] > -1) {
+                        // check if cost from J to K is smaller than current min
+                        if (g->matrix[j][k] < min) {
+                            // check if node K is undiscovered
+                            if (reached[k].discovered == 0) {
+                                min = g->matrix[j][k];
+                                predecessor = j;
+                                child = k;
+                            }
+                        }
+                    }
+                }
             }
         }
-    }
-    return adjacent;
-}
+        // minimum edge weight found: print edge
+        // predecessor discovered child
+    	reached[child].parent = predecessor;
 
-// minimum spanning tree with Prim's algorithm
-void prim(GRAPH* g) {
-    int x, y;
-    STACK* reached = stack_init();
-    // discover first vertex (0)
-    push(reached, 0);
-    g->vertices[0]->discovered = 1;
-    while(!all_discovered(g)) {
-        // find edge between (x,y)
-        // with the smallest cost
-        x = pop(reached);
-        y = find_smallest_edge(g, x);
-        // set x as predecessor of y
-        g->vertices[y]->parent = x;
-        // mark y as reached nodes
-        g->vertices[y]->discovered = 1;
-        // add y to reached set
-        push(reached, y);
-    }
-    print_predecessors(g);
+        // set K of edge (J,K) as visited
+    	reached[child].discovered = 1;
+
+        // print edge (as if it was inserted on MST sorted)
+    	if(predecessor > child) {
+    		printf("(%d,%d) ", child, predecessor);
+    	} else {
+    		printf("(%d,%d) ", predecessor, child);
+    	}
+	}
+    printf("\n");
 }
