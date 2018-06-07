@@ -10,7 +10,7 @@ CC = gcc
 BINARY = ./graph
 
 # sources directory
-SRC = ./stack.c ./graph.c ./main.c
+SRC = ./heap.c ./graph.c ./main.c
 
 # includes directory
 INCLUDES = .

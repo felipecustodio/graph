@@ -6,15 +6,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "stack.h"
 #include "graph.h"
 
 int main(int argc, char const *argv[]) {
 
-    STACK* s; // stack for topological sorting
     int v, e; // number of vertices, edges
     int v1, v2; // vertices to create edge
     int w; // edge weight
+    int src, dest; // desired path
     int i;
 
     // initialize new graph
@@ -28,8 +27,10 @@ int main(int argc, char const *argv[]) {
         add_edge(g, v1, v2, w);
     }
 
-    // prim's MST
-    print_graph(g);
+    while (scanf("%d %d", &src, &dest) != EOF) {
+        dijkstra(g, src, dest);
+        print_path(g, src, dest);
+    }
 
     return 0;
 }

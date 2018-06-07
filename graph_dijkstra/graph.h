@@ -6,7 +6,7 @@
 #ifndef _GRAPH_H_
 #define _GRAPH_H_
 
-#include "stack.h"
+#include "heap.h"
 
 #define TRUE  1
 #define FALSE 0
@@ -18,12 +18,13 @@ typedef struct vertex {
     // 1 - discovered
     int discovered;
     int parent;
+    int weight;
 } VERTEX;
 
 typedef struct graph {
     int n_vertices;
     VERTEX** vertices;
-    char** matrix;
+    int** matrix;
 } GRAPH;
 
 // Initializers
@@ -37,5 +38,11 @@ void remove_edge(GRAPH** g, int start, int end);
 
 // Print
 void print_graph(GRAPH* g);
+
+// Dijkstra Shortest Path
+void dijkstra(GRAPH* g, int src, int dest);
+
+// Print shortest path
+void print_path(GRAPH* g, int src, int dest);
 
 #endif
