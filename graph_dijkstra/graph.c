@@ -124,28 +124,38 @@ void dijkstra(GRAPH* g, int src, int dest) {
 // Print path
 void print_path(GRAPH* g, int src, int dest) {
 	int i, j;
-	int* path = NULL;
+    // initialize path as an aux vector
+    int* path = NULL;
 
+    // nodes on path counter
     i = 0;
-	j = dest;
-    VERTEX* aux = g->vertices[dest];
+    // start on destination
+    VERTEX* temp = g->vertices[dest];
+    j = temp->id;
 
-    j = aux->id;
 	while(j != -1) {
+        // add 'j' to path
 		path = (int*)realloc(path, sizeof(int) * (i + 1));
 		path[i] = j;
-		j = aux->parent;
+        // go up
+		j = temp->parent;
 		if (j != -1) {
-			aux = g->vertices[j];
+            // not at the end of the graph yet
+			temp = g->vertices[j];
 			i++;
 		}
 	}
 
-	if (i > 0 && path[i] == src) {
-		for(j = i; j >= 0; j--) {
-			printf("%d ", path[j]);
-		}
+    // check if nodes were visited
+	if (i > 0) {
+        // path between dest and src exists
+        if (path[i] == src) {
+            // print backwards (dest to src)
+            for(j = i; j >= 0; j--) {
+    			printf("%d ", path[j]);
+    		}
+        }
 	}
-
+    // if no path was found, print only newline
 	printf("\n");
 }
